@@ -1,0 +1,17 @@
+{
+    "webexe_settings": {
+        "blacklist": "",
+        "custom_script": "",
+        "download_dir": "C:/Users/MEJJAT HAFID/Desktop/web2exe",
+        "export_dir": "C:/Users/MEJJAT HAFID/Desktop/web2exe",
+        "force_download": false,
+        "nw_compression_level": 0,
+        "nw_version": "0.94.0",
+        "output_pattern": "",
+        "sdk_build": false,
+        "uncompressed_folder": false,
+        "whitelist": "",
+        "windows-x32": false,
+        "windows-x64": true
+    }
+}

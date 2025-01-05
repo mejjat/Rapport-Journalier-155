@@ -1,0 +1,318 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, #2ecc71, #27ae60, #16a085, #1abc9c);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    z-index: -1;
+}
+
+.content {
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    z-index: 1;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.animated-button {
+    width: 80%;
+    max-width: 400px;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.animated-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background: white;
+}
+
+.animated-button:active {
+    transform: translateY(1px);
+}
+
+.button-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2ecc71;
+    position: relative;
+    z-index: 1;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    color: white;
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .animated-button {
+        width: 90%;
+    }
+}
+
+/* Button hover effect */
+.animated-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(46, 204, 113, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.animated-button:hover::before {
+    left: 100%;
+}
+
+/* Photo upload and preview styles */
+.photo-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.photo-preview {
+    width: 200px;
+    height: 150px;
+    border: 2px dashed #2ecc71;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #f9f9f9;
+    position: relative;
+}
+
+.photo-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.photo-preview span {
+    color: #7f8c8d;
+    text-align: center;
+    padding: 1rem;
+}
+
+.task-photo {
+    max-width: 200px;
+    max-height: 150px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-top: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+/* Task card improvements */
+.task-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading animation improvements */
+.loading-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid rgba(46, 204, 113, 0.3);
+    border-top: 6px solid #2ecc71;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* PDF preview styles */
+.report-preview {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+}
+
+.report-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #2ecc71;
+}
+
+.task-summary {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #2ecc71;
+    transition: transform 0.3s ease;
+}
+
+.task-summary:hover {
+    transform: translateX(5px);
+    background: #f0f2f5;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .photo-preview {
+        width: 150px;
+        height: 120px;
+    }
+
+    .task-photo {
+        max-width: 150px;
+        max-height: 120px;
+    }
+
+    .report-preview {
+        padding: 1rem;
+    }
+}
+
+/* Button improvements */
+.animated-button {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(45deg, #2ecc71, #27ae60);
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.animated-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+}
+
+.animated-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.button-text {
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+.heart {
+    color: red;
+    display: inline-block;
+    animation: heartBeat 1.2s infinite;
+}
+
+@keyframes heartBeat {
+    0% {
+        transform: scale(1);
+    }
+    14% {
+        transform: scale(1.3);
+    }
+    28% {
+        transform: scale(1);
+    }
+    42% {
+        transform: scale(1.3);
+    }
+    70% {
+        transform: scale(1);
+    }
+}

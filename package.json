@@ -1,0 +1,35 @@
+{
+    "app_name": "Rapport-journalier_app",
+    "main": "index.html",
+    "name": "Rapport-journalier_app",
+    "node-main": "script.js",
+    "nodejs": true,
+    "webexe_settings": {
+        "download_dir": "C:/Users/MEJJAT HAFID/Desktop/service electrique 155",
+        "force_download": false,
+        "nw_compression_level": 0,
+        "nw_version": "0.93.0",
+        "sdk_build": false,
+        "uncompressed_folder": false,
+        "windows-x32": false,
+        "windows-x64": true
+    },
+    "webkit": {
+        "double_tap_to_zoom_enabled": true,
+        "plugin": true
+    },
+    "window": {
+        "as_desktop": true,
+        "exe_icon": "MH.png",
+        "frame": true,
+        "fullscreen": false,
+        "icon": "MH.png",
+        "id": "Rapport-journalier_app",
+        "resizable": true,
+        "show": true,
+        "show_in_taskbar": true,
+        "title": "Rapport-journalier_app",
+        "transparent": true,
+        "visible": true
+    }
+}

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tâches Accomplies - Gestion des Interventions Électrique</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .back-button i {
+            font-size: 1.2rem;
+        }
+
+        .tasks-container {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .task-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .task-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .task-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-terminee {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .status-encours {
+            background: #f1c40f;
+            color: white;
+        }
+
+        .status-annulee {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .task-details {
+            display: grid;
+            gap: 0.5rem;
+            color: #7f8c8d;
+        }
+
+        .task-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .no-tasks {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            color: #7f8c8d;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border: 2px solid #2ecc71;
+            border-radius: 20px;
+            background: white;
+            color: #2ecc71;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button.active {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .filter-button:hover {
+            background: #2ecc71;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="animated-background"></div>
+        <div class="content">
+            <div class="nav-buttons">
+                <button class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </button>
+                <button class="animated-button" onclick="navigateToNewTask()">
+                    <span class="button-text">Nouvelle Tâche</span>
+                </button>
+                <button class="animated-button" onclick="navigateToReport()">
+                    <span class="button-text">Générer Rapport</span>
+                </button>
+            </div>
+
+            <h1>Tâches Accomplies</h1>
+            
+            <div class="filters">
+                <button class="filter-button active" data-status="all">Toutes</button>
+                <button class="filter-button" data-status="terminee">Terminées</button>
+                <button class="filter-button" data-status="encours">En cours</button>
+                <button class="filter-button" data-status="annulee">Annulées</button>
+            </div>
+
+            <div id="tasksContainer" class="tasks-container">
+                <!-- Tasks will be loaded here -->
+            </div>
+        </div>
+        <footer>
+            <p>Made with <i class="fas fa-heart heart"></i> by MEJJAT</p>
+        </footer>
+    </div>
+    <script src="data-manager.js"></script>
+    <script src="navigation.js"></script>
+    <script>
+        let currentFilter = 'all';
+
+        function updateTasks() {
+            const tasks = DataManager.getTasks();
+            const container = document.getElementById('tasksContainer');
+            
+            if (tasks.length === 0) {
+                container.innerHTML = `
+                    <div class="no-tasks">
+                        <h3>Aucune tâche trouvée</h3>
+                        <p>Commencez par créer une nouvelle tâche</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const filteredTasks = currentFilter === 'all' 
+                ? tasks 
+                : tasks.filter(task => task.status === currentFilter);
+
+            if (filteredTasks.length === 0) {
+                container.innerHTML = `
+                    <div class="no-tasks">
+                        <h3>Aucune tâche ${currentFilter}</h3>
+                        <p>Changez le filtre pour voir d'autres tâches</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredTasks.map(task => `
+                <div class="task-card">
+                    <div class="task-header">
+                        <span class="task-title">${task.taskName}</span>
+                        <span class="task-status status-${task.status}">${task.status}</span>
+                    </div>
+                    <div class="task-details">
+                        <p><strong>Engin:</strong> ${task.engin}</p>
+                        <p><strong>Intervenants:</strong> ${task.intervenants.join(', ')}</p>
+                        <p><strong>Début:</strong> ${DataManager.formatDate(task.startTime)}</p>
+                        <p><strong>Fin:</strong> ${DataManager.formatDate(task.endTime)}</p>
+                        <p><strong>Durée:</strong> ${DataManager.formatDuration(task.duration)}</p>
+                        ${task.details ? `<p><strong>Détails:</strong> ${task.details}</p>` : ''}
+                        ${task.photo ? `<img src="${task.photo}" alt="Photo de la tâche" class="task-photo">` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Set up filter buttons
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active state
+                document.querySelectorAll('.filter-button').forEach(btn => 
+                    btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Update filter and refresh tasks
+                currentFilter = button.dataset.status;
+                updateTasks();
+            });
+        });
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', updateTasks);
+    </script>
+</body>
+</html>
